@@ -226,7 +226,6 @@ footer .social-links a {
 .work-panel {
     position: relative;
     overflow: hidden;
-    transition: all 0.5s ease;
     cursor: pointer;
     width: 50%;
     height: 100%;
@@ -239,101 +238,128 @@ footer .social-links a {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 2rem 2rem 8rem;
 }
 
 .work-panel-content img {
     position: relative;
     z-index: 1;
+    transition: filter 0.25s ease, opacity 0.25s ease;
 }
 
 .work-logo {
     max-height: 120px;
     width: auto;
-    transition: all 0.5s ease;
     z-index: 1;
-    filter: blur(0);
+}
+
+.work-panel::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 45%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+    z-index: 2;
 }
 
 .work-overlay-dark {
     position: absolute;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    top: 0;
+    z-index: 3;
     left: 0;
-    background: inherit;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "title ."
+        "text button";
+    column-gap: 1rem;
+    align-items: end;
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-    padding: 2rem;
-    text-align: center;
+    transform: translateY(18px);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    padding: 0 1.5rem 1.5rem;
+    text-align: left;
     color: var(--secondary-color);
+    pointer-events: none;
 }
 
 .work-overlay-light {
     position: absolute;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    top: 0;
+    z-index: 3;
     left: 0;
-    background: inherit;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "title ."
+        "text button";
+    column-gap: 1rem;
+    align-items: end;
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-    padding: 2rem;
-    text-align: center;
+    transform: translateY(18px);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    padding: 0 1.5rem 1.5rem;
+    text-align: left;
     color: var(--primary-color);
+    pointer-events: none;
+}
+
+.work-panel:hover::after,
+.work-panel:focus-within::after {
+    opacity: 1;
 }
 
 .work-panel:hover .work-overlay-dark,
-.work-panel:hover .work-overlay-light {
-    opacity: 0.9;
+.work-panel:hover .work-overlay-light,
+.work-panel:focus-within .work-overlay-dark,
+.work-panel:focus-within .work-overlay-light {
+    opacity: 1;
     transform: translateY(0);
+    pointer-events: auto;
 }
 
-.work-panel:hover .work-logo {
-    transform: scale(0.8);
-    opacity: 0.2;
-    filter: blur(4px);
+.work-panel:hover .work-logo,
+.work-panel:focus-within .work-logo {
+    filter: none;
+    opacity: 0.85;
 }
 
 .work-overlay-dark h3,
 .work-overlay-light h3 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    transform: translateY(20px);
-    transition: all 0.5s ease 0.1s;
+    grid-area: title;
+    font-size: 1.7rem;
+    margin-bottom: 0.35rem;
 }
 
 .work-overlay-dark p,
 .work-overlay-light p {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    transform: translateY(20px);
-    transition: all 0.5s ease 0.2s;
-    opacity: 0.9;
+    grid-area: text;
+    font-size: 1rem;
+    margin-bottom: 0;
+    opacity: 0.95;
 }
 
 .work-overlay-dark .btn,
 .work-overlay-light .btn {
+    grid-area: button;
+    justify-self: end;
+    align-self: center;
     position: relative;
-    z-index: 3;
-    transform: translateY(20px);
-    transition: all 0.5s ease 0.3s;
+    z-index: 4;
+    transition: all 0.25s ease;
     border-width: 2px;
-    padding: 0.75rem 2rem;
+    padding: 0.45rem 1.25rem;
     font-weight: 500;
     border-radius: 50px;
     background-color: transparent;
+    margin: 0;
 }
 
 .work-overlay-dark .btn {
@@ -360,15 +386,6 @@ footer .social-links a {
 .work-overlay-light .btn:hover {
     background-color: var(--primary-color);
     color: var(--secondary-color);
-}
-
-.work-panel:hover .work-overlay-dark h3,
-.work-panel:hover .work-overlay-dark p,
-.work-panel:hover .work-overlay-dark .btn,
-.work-panel:hover .work-overlay-light h3,
-.work-panel:hover .work-overlay-light p,
-.work-panel:hover .work-overlay-light .btn {
-    transform: translateY(0);
 }
 
 /* Footer */
@@ -418,14 +435,29 @@ footer a {
         max-height: 80px;
     }
 
+    .work-panel-content {
+        padding: 1.5rem 1.25rem 7rem;
+    }
+
+    .work-overlay-dark,
+    .work-overlay-light {
+        padding: 0 1rem 1rem;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            "title ."
+            "text button";
+        column-gap: 0.75rem;
+    }
+
     .work-overlay-dark h3,
     .work-overlay-light h3 {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
 
     .work-overlay-dark p,
     .work-overlay-light p {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        margin-bottom: 0.7rem;
     }
 }
 
@@ -709,66 +741,58 @@ footer a {
 #grype-logo {
     max-height: 90px;
 }
-
 #meatshack-logo {
     max-height: 100px;
 }
-
 #akimbo-logo {
     max-height: 220px;
 }
-
 #bellryan-logo {
     max-height: 120px;
 }
-
 #namerie-logo {
     max-height: 70px;
 }
-
 #citc-logo {
     max-height: 100px;
 }
-
-#savies-logo {
-    max-height: 100px;
-}
-
 #itm-logo {
     max-height: 180px;
+}
+#studious-logo {
+    max-height: 120px;
+}
+#deluxo-logo {
+    max-height: 100px;
 }
 
 @media (max-width: 768px) {
     #grype-logo {
         max-height: 60px;
     }
-
     #meatshack-logo {
         max-height: 70px;
     }
-
     #akimbo-logo {
         max-height: 140px;
     }
-
     #bellryan-logo {
         max-height: 80px;
     }
-
     #namerie-logo {
         max-height: 40px;
     }
-
     #citc-logo {
         max-height: 70px;
     }
-
-    #savies-logo {
-        max-height: 60px;
-    }
-
     #itm-logo {
         max-height: 130px;
+    }
+    #studious-logo {
+        max-height: 90px;
+    }
+    #deluxo-logo {
+        max-height: 70px;
     }
 }
 
@@ -777,37 +801,34 @@ footer a {
     width: 130px !important;
     padding-top: 5px;
 }
-
 #carousel-meatshack {
     width: 200px !important;
     padding-bottom: 10px;
 }
-
 #carousel-akimbo {
     width: 80px !important;
     padding-bottom: 15px;
 }
-
 #carousel-bellryan {
     width: 180px !important;
     padding-top: 10px;
 }
-
 #carousel-namerie {
     width: 200px !important;
 }
-
 #carousel-itm {
     width: 80px !important;
     padding-bottom: 10px;
 }
-
 #carousel-citc {
     width: 200px !important;
 }
-
-#carousel-savies {
-    width: 130px !important;
+#carousel-studious {
+    width: 180px !important;
+    padding-bottom: 20px;
+}
+#carousel-deluxo {
+    width: 160px !important;
     padding-bottom: 10px;
 }
 
@@ -849,8 +870,13 @@ footer a {
         width: 140px !important;
     }
 
-    #carousel-savies {
-        width: 100px !important;
-        padding-top: 3px;
+    #carousel-studious {
+        width: 130px !important;
+        padding-bottom: 7px;
+    }
+
+    #carousel-deluxo {
+        width: 140px !important;
+        padding-bottom: 7px;
     }
 } 

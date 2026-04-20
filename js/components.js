@@ -35,14 +35,14 @@ function initNavbarLogo() {
     
     if (logo) {
         // Default logo (black version)
-        logo.src = '../images/deluxo-full-black.png';
+        logo.src = '../images/uxrn-black.png';
         
         // Check if we're on the home page
         const isHomePage = document.body.classList.contains('home-page');
         
         if (isHomePage) {
             // Use white logo on home page initially
-            logo.src = '../images/deluxo-full-white.png';
+            logo.src = '../images/uxrn-white.png';
             
             // Add scroll event listener for home page
             window.addEventListener('scroll', function() {
@@ -52,10 +52,10 @@ function initNavbarLogo() {
                     
                     if (window.scrollY > heroBottom - 100) {
                         document.querySelector('.navbar').classList.add('scrolled');
-                        logo.src = '../images/deluxo-full-black.png';
+                        logo.src = '../images/uxrn-black.png';
                     } else {
                         document.querySelector('.navbar').classList.remove('scrolled');
-                        logo.src = '../images/deluxo-full-white.png';
+                        logo.src = '../images/uxrn-white.png';
                     }
                 }
             });
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Handle footer logo if needed
                     const footerLogo = document.getElementById('footer-logo');
                     if (footerLogo) {
-                        footerLogo.src = '../images/deluxo-full-white.png';
+                        footerLogo.src = '../images/uxrn-white.png';
                     }
                 })
         );
