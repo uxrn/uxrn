@@ -185,6 +185,12 @@ footer .social-links a {
     margin: 0 auto;
 }
 
+@media (min-height: 950px) {
+    #hero .container {
+        margin-top: -150px;
+    }
+}
+
 .cursor {
     opacity: 1;
     animation: blink 1.2s infinite;
